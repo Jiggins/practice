@@ -1,5 +1,7 @@
 package practice;
 
+import practice.config.ConfigHandler;
+import practice.items.Items;
 import practice.network.PacketHandler;
 import practice.proxies.CommonProxy;
 import cpw.mods.fml.common.Mod;
@@ -23,7 +25,10 @@ public class PracticeMod {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-
+		ConfigHandler.init(event.getSuggestedConfigurationFile());
+		Items.init();
+		proxy.initSounds();
+		proxy.initRenderers();
 	} 
 
 	@EventHandler
