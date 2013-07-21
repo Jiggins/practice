@@ -9,6 +9,7 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityLivingData;
+import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,8 +17,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import vswe.creativeTabs.CreativeTabsMod;
-import vswe.items.ItemInfo;
+import practice.items.ItemInfo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -37,12 +37,12 @@ public class ItemPigDisplacer extends Item {
 		
 		setCreativeTab(CreativeTabs.tabCombat);
 		setMaxStackSize(1);
-		setUnlocalizedName(ItemInfo.WAND_UNLOCALIZED_NAME);
+		setUnlocalizedName(ItemInfo.PIG_DISPLACER_UNLOCALIZED_NAME);
 	}
 	
 	@Override
 	public CreativeTabs[] getCreativeTabs() {
-		return new CreativeTabs [] {CreativeTabs.tabCombat, CreativeTabsMod.stevesTab};
+		return new CreativeTabs [] {CreativeTabs.tabCombat};
 	}
 	
 	
@@ -123,8 +123,8 @@ public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister register) {
-		itemIcon = register.registerIcon(ItemInfo.TEXTURE_LOCATION + ":" + ItemInfo.WAND_ICON);
-		chargedIcon = register.registerIcon(ItemInfo.TEXTURE_LOCATION + ":" + ItemInfo.WAND_CHARGED_ICON);
+		itemIcon = register.registerIcon(ItemInfo.TEXTURE_LOCATION + ":" + ItemInfo.PIG_DISPLACER_ICON);
+		chargedIcon = register.registerIcon(ItemInfo.TEXTURE_LOCATION + ":" + ItemInfo.PIG_DISPLACER_CHARGED_ICON);
 	}
 	
 	@Override
