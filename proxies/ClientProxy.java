@@ -1,4 +1,4 @@
-package practice.network;
+package practice.proxies;
 
 public class ClientProxy {
 
