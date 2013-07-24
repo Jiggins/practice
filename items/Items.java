@@ -18,11 +18,11 @@ public class Items {
 
 	public static void registerRecipies() {
 		GameRegistry.addRecipe(new ItemStack(pigDisplacer),
-				new Object[] { 	"  P",
+				new Object[] { 	"F/F",
 								" / ",
-								"/  ",
+								" / ",
 								
-								'P', Item.goldenCarrot,
+								'F', Item.feather,
 								'/', Item.stick
 							});
 	}

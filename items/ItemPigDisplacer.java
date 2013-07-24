@@ -77,39 +77,39 @@ public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer
 		if (!player.isSneaking()) {
 			//If the Item has pigs to launch
 			if (this.isCharged(itemstack.getItemDamage())) {
-
 				//Creates a little piggy
 				Entity entity = EntityList.createEntityByName("Pig", world);
 
-				//Check to see if I didnt fuck up on the last line
-				if (entity != null && entity instanceof EntityLivingBase)
-					return itemstack;
-				{
-				//Gets the position (x, y, z) of the block the player is looking at
-				MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, player, true);
+				//Check to see if I didn't fuck up on the last line
+				if (entity != null && entity instanceof EntityLivingBase) {
 
-				//Because it crashed when I right clicked when looking into the sky (not looking at a block)
-				if (movingobjectposition == null) {
-				    return itemstack;
-				}
+					//Gets the position (x, y, z) of the block the player is looking at
+		            MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, player, true);
 
-				int x = movingobjectposition.blockX;
-				int y = movingobjectposition.blockY + 1;
-				int z = movingobjectposition.blockZ;
+					// Because it crashed when I right clicked when looking into the sky (not looking at a block)
+					if (movingobjectposition == null) {
+						System.out.println("null position!");
+					    return itemstack;
+					}
 
-				//Casts the Entity Object above into an Entity Living Object.
-				EntityLiving entityliving = (EntityLiving)entity;
-				//Sets the location of the pig to the block I'm looking at and places it at a random angle
-				entity.setLocationAndAngles(x, y, z, MathHelper.wrapAngleTo180_float(world.rand.nextFloat() * 360.0F), 0.0F);
-				//What way the head is facing
-				entityliving.rotationYawHead = entityliving.rotationYaw;
-				entityliving.renderYawOffset = entityliving.rotationYaw;
-				//honestly no idea, but it looks important
-				entityliving.func_110161_a((EntityLivingData)null);
-				//finally creates the pig in the world
-				world.spawnEntityInWorld(entity);
-				//Oink oink
-				entityliving.playLivingSound();
+					int x =	movingobjectposition.blockX;
+					int y =	movingobjectposition.blockY + 1;
+					int z =	movingobjectposition.blockZ;
+
+					//Casts the Entity Object above into an Entity Living Object.
+					EntityLiving entityliving = (EntityLiving)entity;
+					//Sets the location of the pig to the block I'm looking at and places it at a random angle
+					entity.setLocationAndAngles(x, y, z, MathHelper.wrapAngleTo180_float(world.rand.nextFloat() * 360.0F), 0.0F);
+
+					//What way the head is facing
+					entityliving.rotationYawHead = entityliving.rotationYaw;
+					entityliving.renderYawOffset = entityliving.rotationYaw;
+					//honestly no idea, but it looks important
+					entityliving.func_110161_a((EntityLivingData)null);
+					//finally creates the pig in the world
+					world.spawnEntityInWorld(entity);
+					//Oink oink
+					entityliving.playLivingSound();
 				}
 
 				//Reduces the number of pigs left in the wand.
@@ -130,11 +130,11 @@ public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List info, boolean useExtraInformation) {
-		info.add("This item has been used " + itemstack.getItemDamage() + " times.");
-		
 		if (isCharged(itemstack.getItemDamage())) {
 			info.add("This item is charged");
 		}
+		
+		info.add("Charges: " + itemstack.getItemDamage());
 
 		info.add("Suggestion from Coder Dojo");
 	}

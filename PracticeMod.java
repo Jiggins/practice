@@ -13,9 +13,10 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
+
+
 @Mod(modid = ModInformation.ID, name = ModInformation.NAME, version = ModInformation.VERSION)
-@NetworkMod(channels = {ModInformation.CHANNELS}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketHandler.class)
-public class PracticeMod {
+@NetworkMod(channels = {"Niamh"}, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketHandler.class)public class PracticeMod {
 
 	@Instance("PracticeMod")
 	public static PracticeMod instance;
@@ -25,14 +26,16 @@ public class PracticeMod {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		ConfigHandler.init(event.getSuggestedConfigurationFile());
+		// ConfigHandler.init(event.getSuggestedConfigurationFile());
 		Items.init();
 		proxy.initSounds();
 		proxy.initRenderers();
-	} 
+		} 
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		Items.addNames();
+		Items.registerRecipies();
 
 	}
 
