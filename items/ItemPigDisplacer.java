@@ -69,56 +69,56 @@ public class ItemPigDisplacer extends Item {
 		
 	}
 	
-@Override							//itemstack = wand,, world = the world that the player is in, player = me!
-public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player) {
-	//Makes this code only work on the server,  no need to to it on the Client side.
-	if (!world.isRemote) {
-		//If Shift button is not held,  I have another method for Shift+RightClick
-		if (!player.isSneaking()) {
-			//If the Item has pigs to launch
-			if (this.isCharged(itemstack.getItemDamage())) {
-				//Creates a little piggy
-				Entity entity = EntityList.createEntityByName("Pig", world);
+	@Override							//itemstack = wand,, world = the world that the player is in, player = me!
+	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player) {
+		//Makes this code only work on the server,  no need to to it on the Client side.
+		if (!world.isRemote) {
+			//If Shift button is not held,  I have another method for Shift+RightClick
+			if (!player.isSneaking()) {
+				//If the Item has pigs to launch
+				if (this.isCharged(itemstack.getItemDamage())) {
+					//Creates a little piggy
+					Entity entity = EntityList.createEntityByName("Pig", world);
 
-				//Check to see if I didn't fuck up on the last line
-				if (entity != null && entity instanceof EntityLivingBase) {
+					//Check to see if I didn't fuck up on the last line
+					if (entity != null && entity instanceof EntityLivingBase) {
 
-					//Gets the position (x, y, z) of the block the player is looking at
-		            MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, player, true);
+						//Gets the position (x, y, z) of the block the player is looking at
+						MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, player, true);
 
-					// Because it crashed when I right clicked when looking into the sky (not looking at a block)
-					if (movingobjectposition == null) {
-						System.out.println("null position!");
-					    return itemstack;
+						// Because it crashed when I right clicked when looking into the sky (not looking at a block)
+						if (movingobjectposition == null) {
+							System.out.println("null position!");
+						    return itemstack;
+						}
+
+						int x =	movingobjectposition.blockX;
+						int y =	movingobjectposition.blockY + 1;
+						int z =	movingobjectposition.blockZ;
+
+						//Casts the Entity Object above into an Entity Living Object.
+						EntityLiving entityliving = (EntityLiving)entity;
+						//Sets the location of the pig to the block I'm looking at and places it at a random angle
+						entity.setLocationAndAngles(x, y, z, MathHelper.wrapAngleTo180_float(world.rand.nextFloat() * 360.0F), 0.0F);
+
+						//What way the head is facing
+						entityliving.rotationYawHead = entityliving.rotationYaw;
+						entityliving.renderYawOffset = entityliving.rotationYaw;
+						//honestly no idea, but it looks important
+						entityliving.func_110161_a((EntityLivingData)null);
+						//finally creates the pig in the world
+						world.spawnEntityInWorld(entity);
+						//Oink oink
+						entityliving.playLivingSound();
 					}
 
-					int x =	movingobjectposition.blockX;
-					int y =	movingobjectposition.blockY + 1;
-					int z =	movingobjectposition.blockZ;
-
-					//Casts the Entity Object above into an Entity Living Object.
-					EntityLiving entityliving = (EntityLiving)entity;
-					//Sets the location of the pig to the block I'm looking at and places it at a random angle
-					entity.setLocationAndAngles(x, y, z, MathHelper.wrapAngleTo180_float(world.rand.nextFloat() * 360.0F), 0.0F);
-
-					//What way the head is facing
-					entityliving.rotationYawHead = entityliving.rotationYaw;
-					entityliving.renderYawOffset = entityliving.rotationYaw;
-					//honestly no idea, but it looks important
-					entityliving.func_110161_a((EntityLivingData)null);
-					//finally creates the pig in the world
-					world.spawnEntityInWorld(entity);
-					//Oink oink
-					entityliving.playLivingSound();
+					//Reduces the number of pigs left in the wand.
+					itemstack.setItemDamage(itemstack.getItemDamage() - 1);
 				}
-
-				//Reduces the number of pigs left in the wand.
-				itemstack.setItemDamage(itemstack.getItemDamage() - 1);
 			}
 		}
+		return itemstack;
 	}
-	return itemstack;
-}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
