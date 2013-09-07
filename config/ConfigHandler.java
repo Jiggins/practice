@@ -3,7 +3,8 @@ package practice.config;
 import java.io.File;
 
 import net.minecraftforge.common.Configuration;
-import vswe.items.ItemInfo;
+import practice.blocks.BlockInfo;
+import practice.items.ItemInfo;
 
 public class ConfigHandler {
 
@@ -12,6 +13,9 @@ public class ConfigHandler {
 		
 		config.load();
 		
+		BlockInfo.CONCRETE_ID = config.getBlock(BlockInfo.CONCRETE_KEY, BlockInfo.CONCRETE_DEFAULT).getInt();
+
+		ItemInfo.PIG_DISPLACER_ID = config.getItem(ItemInfo.PIG_DISPLACER_KEY, ItemInfo.PIG_DISPLACER_DEFAULT).getInt() - 256;	
 		config.save();
 		
 	}

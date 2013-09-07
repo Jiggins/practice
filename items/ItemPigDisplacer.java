@@ -21,6 +21,7 @@ import practice.items.ItemInfo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+//github
 /**
  * Suggestion from Coder Dojo
  * Shift Right click pig to pick up
@@ -127,6 +128,7 @@ public class ItemPigDisplacer extends Item {
 		chargedIcon = register.registerIcon(ItemInfo.TEXTURE_LOCATION + ":" + ItemInfo.PIG_DISPLACER_CHARGED_ICON);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List info, boolean useExtraInformation) {
